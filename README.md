@@ -9,9 +9,8 @@
 
 ## 📸 Screenshots
 
-| Access Terminal (Totem) | Admin Dashboard |
-|:---:|:---:|
-| ![Totem View](https://placehold.co/600x400?text=Totem+Screenshot) | ![Dashboard View](https://placehold.co/600x400?text=Dashboard+Screenshot) |
+<img width="1636" height="738" alt="image" src="https://github.com/user-attachments/assets/414bc987-b0ff-4310-8175-7147b62d07f6" />
+
 
 ## 🚀 About the Project
 
