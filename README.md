@@ -43,7 +43,6 @@ cd FaceLogger
 
 ### Step 2: Install dependencies
 
-
 pip install -r requirements.txt
 
 ### Step 3: Initialize the System

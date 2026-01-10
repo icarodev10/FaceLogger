@@ -7,7 +7,7 @@ import datetime
 
 app = FastAPI()
 
-# --- CONFIGURAÇÃO DO CORS (Liberando geral pra teste local) ---
+# --- CONFIGURAÇÃO DO CORS  ---
 origins = ["*"] # "Aceita conexão de qualquer lugar"
 
 app.add_middleware(

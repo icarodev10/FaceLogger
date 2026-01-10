@@ -31,7 +31,7 @@ def pegar_proximo_id():
     if not ids: return 1
     return max(ids) + 1
 
-# --- PASSO 1: CAPTURAR ---
+# --- CAPTURAR ---
 def capturar_rosto(id, nome):
     cap = cv2.VideoCapture(0)
     print(f"\n📸 Registering {nome} (ID: {id})... Look at the camera!")
@@ -57,7 +57,7 @@ def capturar_rosto(id, nome):
     cv2.destroyAllWindows()
     print("✅ Capture finished!")
 
-# --- PASSO 2: TREINAR ---
+# --- TREINAR ---
 def treinar_modelo():
     print("\n🧠 Training the system with new faces...")
     recognizer = cv2.face.LBPHFaceRecognizer_create()

@@ -5,15 +5,13 @@ import json
 import base64
 import datetime
 import requests
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import StreamingResponse, HTMLResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
 # --- CONFIGURAÇÕES ---
-API_LOGS_URL = "http://127.0.0.1:8000/registrar" # URL da sua API de logs
+API_LOGS_URL = "http://127.0.0.1:8000/registrar" # URL da API de logs
 ARQUIVO_TREINO = 'trainer.yml'
 ARQUIVO_NOMES = 'usuarios.json'
 FACE_CASCADE = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -35,7 +33,7 @@ def gerar_frames():
     global modo_liberado, tempo_inicio_liberacao, frame_congelado
 
     while True:
-        # 1. Se estiver no modo "Sucesso", mostra a foto congelada
+        # Se estiver no modo "Sucesso", mostra a foto congelada
         if modo_liberado:
             tempo_passado = time.time() - tempo_inicio_liberacao
             if tempo_passado < DURACAO_TELA_SUCESSO:
@@ -44,7 +42,7 @@ def gerar_frames():
                 frame_bytes = buffer.tobytes()
                 yield (b'--frame\r\n'
                        b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-                time.sleep(0.03) # Pequena pausa pra não fritar a CPU
+                time.sleep(0.03) 
                 continue
             else:
                 modo_liberado = False # Acabou o tempo, volta a filmar
@@ -80,7 +78,7 @@ def gerar_frames():
                 frame_congelado = frame_sucesso
                 alguem_autorizado = True
                 
-                # Envia log pra API (Opcional, se quiser manter o dashboard funcionando)
+                # Envia log pra API 
                 try:
                     retval, buffer = cv2.imencode('.jpg', frame)
                     img_b64 = base64.b64encode(buffer).decode('utf-8')
@@ -98,7 +96,7 @@ def gerar_frames():
         ret, buffer = cv2.imencode('.jpg', frame)
         frame_bytes = buffer.tobytes()
         
-        # O segredo do streaming (Multipart)
+        # Multipart(streaming)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
@@ -109,7 +107,7 @@ def video_feed():
 
 @app.get("/")
 def index():
-    # Retorna o HTML direto (pra facilitar sua vida e não precisar criar pasta templates agora)
+    # Retorna o HTML direto 
     html_content = """
     <!doctype html>
     <html lang="pt-BR">
@@ -154,11 +152,9 @@ def index():
 if __name__ == "__main__":
     import uvicorn
 
-    # Mensagem bonita no terminal com link clicável
     print("\n" + "="*50)
     print("🚀 SISTEMA DE CÂMERA INICIADO!")
     print("👉 Acesse o Totem aqui: http://localhost:5000")
     print("="*50 + "\n")
     
-    # Log level 'error' esconde aquelas mensagens chatas de GET /video_feed
     uvicorn.run(app, host="0.0.0.0", port=5000, log_level="error")
