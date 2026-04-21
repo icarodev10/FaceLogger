@@ -7,6 +7,13 @@ import datetime
 import requests
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse, HTMLResponse
+import serial
+
+# Conexão (ajuste a porta COM)
+try:
+    arduino = serial.Serial('COM3', 9600)
+except:
+    arduino = None
 
 app = FastAPI()
 
@@ -28,9 +35,11 @@ modo_liberado = False
 tempo_inicio_liberacao = 0
 frame_congelado = None
 DURACAO_TELA_SUCESSO = 4
+tempo_ultimo_bloqueio = 0 
+
 
 def gerar_frames():
-    global modo_liberado, tempo_inicio_liberacao, frame_congelado
+    global modo_liberado, tempo_inicio_liberacao, frame_congelado, tempo_ultimo_bloqueio
 
     while True:
         # Se estiver no modo "Sucesso", mostra a foto congelada
@@ -61,6 +70,10 @@ def gerar_frames():
 
             if confianca < 60:
                 # --- RECONHECIDO ---
+                            # Rosto identificado!
+                if arduino:
+                    arduino.write(b'1')
+                        
                 id_str = str(id_predito)
                 nome = nomes_cadastrados.get(id_str, "Unknown")
                 hora_atual = datetime.datetime.now().strftime("%H:%M:%S")
@@ -88,7 +101,14 @@ def gerar_frames():
                 
                 break # Sai do loop de rostos
             else:
-                # Desconhecido
+# --- DESCONHECIDO ---
+                tempo_atual = time.time()
+                
+                # COOLDOWN: Só manda o sinal '0' se já passou 2 segundos do último
+                if tempo_atual - tempo_ultimo_bloqueio > 2:
+                    if arduino:
+                        arduino.write(b'0')
+                    tempo_ultimo_bloqueio = tempo_atual # Reseta o cronômetro
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
                 cv2.putText(frame, "Not Registered", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
