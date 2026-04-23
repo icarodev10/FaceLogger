@@ -85,7 +85,7 @@ The system can work 100% digital, but includes support to physical hardware. The
 * `1` **(Match found):** Turn the green LED on and rotates the servo to 90°
 * `0` **(Access Denied):** Quickly turn the red LED on and keep the servo locked in 0°.
 
-*(Você pode incluir uma foto do seu circuito montado na protoboard aqui!)*
+https://github.com/user-attachments/assets/3e4dbdff-7b17-41d5-ba7e-4f304221fb11
 
 Developed by Icaro de Souza 🚀 
 https://www.linkedin.com/in/icaro-souza-ti/
