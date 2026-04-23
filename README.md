@@ -19,15 +19,24 @@
 **Key Features:**
 * 🔐 **Facial Recognition:** Implements LBPH (Local Binary Patterns Histograms) algorithm for robust user identification.
 * ⚡ **Real-Time Logging:** Instant data transmission from the camera client to the web dashboard via REST API.
-* 🖥️ **Interactive Kiosk Mode:** Visual feedback (Green/Red overlays) for the end-user.
+* 🖥️ **Interactive Mode:** Visual feedback (Green/Red overlays) for the end-user.
 * 📊 **Analytics Dashboard:** Web interface to monitor access logs, timestamps, and captured snapshots.
+* ⚙️ **IoT Hardware Integration:** Physical access using Serial communication to trigger micro servo motor and feedback LEDs by Arduino.
+
+
 
 ## 🛠️ Tech Stack
 
+**Software:**
 * **Computer Vision:** OpenCV (Face detection & recognition)
-* **Backend API:** Python FastAPI
+* **Backend API:** Python FastAPI & `pyserial`
 * **Database:** SQLite (Lightweight local storage)
-* **Frontend:** HTML5, CSS3, JavaScript (Fetch API for dynamic updates)
+* **Frontend:** HTML5, CSS3, JavaScript (Fetch API)
+
+**Hardware / IoT:**
+* **Microcontroller:** Arduino Uno
+* **Actuators:** Micro Servo Motor (Turnstile simulation)
+* **Visual Feedback:** Green/Red LEDs
 
 ## 📦 Installation & Setup
 
