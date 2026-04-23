@@ -78,6 +78,15 @@ Authorization: If a match is found (Confidence < 60), a request is sent to the A
 
 Logging: The API saves the event and the base64 image to the database, updating the Dashboard instantly.
 
+## 🔌 Hardware Setup (IoT Module)
+
+The system can work 100% digital, but includes support to physical hardware. The python script communicates with an Arduino by USB, sending binary signals
+
+* `1` **(Match found):** Turn the green LED on and rotates the servo to 90°
+* `0` **(Access Denied):** Quickly turn the red LED on and keep the servo locked in 0°.
+
+*(Você pode incluir uma foto do seu circuito montado na protoboard aqui!)*
+
 Developed by Icaro de Souza 🚀 
 https://www.linkedin.com/in/icaro-souza-ti/
 
